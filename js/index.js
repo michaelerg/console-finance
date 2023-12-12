@@ -87,76 +87,52 @@ var finances = [
   ["Feb-2017", 671099],
 ];
 
-for (let i =0; i< finances.length; i++){}
+for (let i = 0; i < finances.length; i++) {}
 var numberofmonths = finances.length;
 alert(`There are ${numberofmonths} months in this financial analysis`); //86 arrays? months
 
 // total profits:
 let totalprofits = 0;
 let totalchange = 0;
-let biggestchange = {date:"", amount:0}; //makes it an object so we can attach a key objecy: has a key and a value (more reliable/and for display)
-let biggestdecrease= {date: "", amount:0};
+let biggestchange = { date: "", amount: 0 }; //BRACKETS makes it an object so we can attach a key objecy: has a key and a value (more reliable/and for display)
+let biggestdecrease = { date: "", amount: 0 };
+//for loop from 1st to last month
 for (let i = 0; i < finances.length; i++) {
-  let profits = finances[i][1]
-  totalprofits= totalprofits + profits
-  
+  // sum up all profits from each month
+  let profits = finances[i][1];
+  totalprofits = totalprofits + profits;
+
   //if statements
 
-
-  // for biggest change start with i=1
-  // let change = finances[i + 1][1] - finances[i][1];
-  // // console.log(finances[i][1],change)
-  // //console.log(change);
-  // totalchange = totalchange + change;
-  // //keep track of the biggest change
-  // if (change > biggestchange) {
-  //   let biggestchange = change;
-  //   console.log(biggestchange);
- // }
-  //console.log(finances[i][1])
- // let greatestincrease = 
- if (i>0){
-  var change2= finances[i][1] - finances[i-1][1];
-  totalchange +=change2
-  if (change2>biggestchange.amount) {
-    biggestchange.amount=change2
-    biggestchange.date = finances[i][0]
-    
+  if (i > 0) {
+    //calculate the change between months
+    var change2 = finances[i][1] - finances[i - 1][1];
+    totalchange += change2;
+    if (change2 > biggestchange.amount) {
+      biggestchange.amount = change2;
+      biggestchange.date = finances[i][0];
+    } else if (change2 < biggestdecrease.amount) {
+      biggestdecrease.amount = change2;
+      biggestdecrease.date = finances[i][0];
+    }
   }
-  else if(change2<biggestdecrease.amount) {
-    biggestdecrease.amount=change2
-    biggestdecrease.date = finances[i][0]
-  }
-   
 }
-
-}
+//calculating average change
 let averagechange = totalchange / (numberofmonths - 1);
 
-console.log("Financial Analysis")
-console.log("---------------------")
-setTimeout(function(){
-  console.log("Total months:" + finances.length)
-  console.log("Total: " + "$"+ totalprofits)
-  console.log("Average change " + averagechange.toFixed(2))
-  console.log("Greatest increase in profits/losses "+ biggestchange.date, "$" + biggestchange.amount)
-  console.log("Greatest decrease in profits/losses: " + biggestdecrease.date, "$" + biggestdecrease.amount)
-}, 4000)
-
-
-//console.log(totalchange)
-
-
-//console.log(typeof finances[0][1])
-//variables:
-//total number of months
-//  rolling total of profits
-
-//  greatest increase month and Amt
-//  greatest loss
-//  average of changes
-
-//while loop/ for loop
-//inside the loop:
-//  current data Point
-//  previous datta point
+console.log("Financial Analysis");
+console.log("---------------------");
+setTimeout(function () {
+  console.log("Total months:" + finances.length);
+  console.log("Total: " + "$" + totalprofits);
+  console.log("Average change " + averagechange.toFixed(2));
+  console.log(
+    "Greatest increase in profits/losses " + biggestchange.date,
+    "$" + biggestchange.amount
+  );
+  console.log(
+    "Greatest decrease in profits/losses: " + biggestdecrease.date,
+    "$" + biggestdecrease.amount
+  );
+}, 4000);
+//display the results in a timely fashion (4 seconds)
